@@ -16,7 +16,7 @@ export class CompanyService {
   getCompanies(): Observable<Company[]> {
   return this.httpClient.get<Company[]>(`${this.API_BASE}/company`)
     .pipe(   // without modifing
-      tap(c => console.log('component has companies ', c))
+      tap(c => console.log('service has companies ', c))
     );
   }
 }

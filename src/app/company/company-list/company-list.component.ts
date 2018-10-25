@@ -20,7 +20,14 @@ export class CompanyListComponent implements OnInit {
       .pipe(   // without modifing
         tap(c => console.log('component has companies ', c))  // rxjs operator
       )
-      .subscribe(c => this.companies = c);
+      .subscribe(
+        next => {
+          this.companies = next; // Required. A handler for each delivered value. Called zero or more times after execution starts
+          console.log('Got companies');
+        },
+        error => { console.error('Error'); }, // Optional. A handler for an error notification.
+        () => { console.log('COMPLETE'); } // Optional. A handler for the execution-complete notification.
+      );
   }
 
 }
