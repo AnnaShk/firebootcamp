@@ -9,9 +9,4 @@ export class AppComponent {
   title = 'firebootcamp-crm';  // property
   constructor() {
   }
-
-  inputChange(event) {
-    console.log('input changed: ', event);
-    this.title = event.target.value;
-  }
 }
