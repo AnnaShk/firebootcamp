@@ -14,8 +14,7 @@ export class CompanyService {
   constructor(private httpClient: HttpClient) { }
 
   getCompanies(): Observable<Company[]> {
-    const str = this.API_BASE + '/company';
-    return this.httpClient.get<Company[]>(this.API_BASE + '/company') // this version not working for me: (`$(this.API_BASE)/company`)  
+  return this.httpClient.get<Company[]>(`${this.API_BASE}/company`)
     .pipe(   // without modifing
       tap(c => console.log('component has companies ', c))
     );
