@@ -21,10 +21,20 @@ export class CompanyService {
     );
   }
 
-  errorHandler(error): Observable<Company[]> {
+  deleteCompany(company: Company): Observable<Company[]> {
+    console.log('DELETE 1');
+    const res = this.httpClient.delete<Company[]>(`${this.API_BASE}/company/${company.id}`)
+    .pipe(
+      catchError(this.errorHandler)
+    );
+    console.log('DELETE 2');
+    return res;
+  }
+
+  errorHandler(error): Observable<any> {
     console.log('Error in service', error);
-    // throw error;
+    throw error;
     // if you don't want to throught the exception, you can handle the issue yourself:
-    return new Observable<Company[]>();
+    // return new Observable<Company[]>();
   }
 }
