@@ -17,21 +17,23 @@ export class CompanyService {
   return this.httpClient.get<Company[]>(`${this.API_BASE}/company`)
     .pipe(   // without modifing
       tap(c => console.log('service has companies ', c)),
-      catchError(e => this.errorHandler(e))
+      catchError(e => this.errorHandler<Company[]>(e))
     );
   }
 
-  deleteCompany(company: Company): Observable<Company[]> {
+  deleteCompany(company: Company): Observable<Company> {
     console.log('DELETE 1');
-    const res = this.httpClient.delete<Company[]>(`${this.API_BASE}/company/${company.id}`)
+    // API deletes the company which was just deleted
+    const res = this.httpClient.delete<Company>(`${this.API_BASE}/company/${company.id}`)
     .pipe(
-      catchError(this.errorHandler)
+      catchError(error => this.errorHandler<Company>(error))
     );
     console.log('DELETE 2');
     return res;
   }
 
-  errorHandler(error): Observable<any> {
+  errorHandler<T>(error): Observable<T> {  // <any> to handle errors from both delete and get
+                                           // <T> using generic. Which is much better
     console.log('Error in service', error);
     throw error;
     // if you don't want to throught the exception, you can handle the issue yourself:

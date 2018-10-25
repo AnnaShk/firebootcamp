@@ -20,7 +20,7 @@ export class CompanyListComponent implements OnInit {
   }
 
   loadCompanies() {
-    this.companies$ = this.companyService.getCompanies()
+    this.companies$ = this.companyService.getCompanies()    // Creates new observable every time
       .pipe(   // without modifing
         tap(c => console.log('component has companies ', c)),  // rxjs operator
         finalize(() => console.log('COMPLETE'))
@@ -29,7 +29,7 @@ export class CompanyListComponent implements OnInit {
 
   deleteClicked(company: Company) {
     this.companyService.deleteCompany(company)
-      .subscribe(
+      .subscribe(  // Nothing (delete) will not happen without subscribe
         c => this.loadCompanies()
       );
   }
