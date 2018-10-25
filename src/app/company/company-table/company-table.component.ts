@@ -10,23 +10,19 @@ import { Company } from '../company';
 })
 export class CompanyTableComponent implements OnInit {
   @Input()
-  companies: Company[];
+  companies: Company[];  // better bing the change detection to this NON observable
 
   @Output()
   deleteClicked = new EventEmitter<Company>();
 
-  constructor() { }
+  constructor() { // sth to change detection in constructor
+  }
 
   ngOnInit() {
   }
 
   deleteCompany(company: Company) {
     this.deleteClicked.emit(company);
+    // change detection here
   }
-
-  // 1 sample to catch changes. calls 9 times without changeDetection
-  logChanges() {
-    console.log('Change');
-  }
-
 }
