@@ -15,20 +15,17 @@ export class CompanyService {
 
   getCompanies(): Observable<Company[]> {
   return this.httpClient.get<Company[]>(`${this.API_BASE}/company`)
-    .pipe(   // without modifing
-      tap(c => console.log('service has companies ', c)),
+    .pipe(
       catchError(e => this.errorHandler<Company[]>(e))
     );
   }
 
   deleteCompany(company: Company): Observable<Company> {
-    console.log('DELETE 1');
     // API deletes the company which was just deleted
     const res = this.httpClient.delete<Company>(`${this.API_BASE}/company/${company.id}`)
     .pipe(
       catchError(error => this.errorHandler<Company>(error))
     );
-    console.log('DELETE 2');
     return res;
   }
 

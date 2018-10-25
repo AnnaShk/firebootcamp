@@ -20,11 +20,7 @@ export class CompanyListComponent implements OnInit {
   }
 
   loadCompanies() {
-    this.companies$ = this.companyService.getCompanies()    // Creates new observable every time
-      .pipe(   // without modifing
-        tap(c => console.log('component has companies ', c)),  // rxjs operator
-        finalize(() => console.log('COMPLETE'))
-      );
+    this.companies$ = this.companyService.getCompanies();   // Creates new observable every time
   }
 
   deleteClicked(company: Company) {
