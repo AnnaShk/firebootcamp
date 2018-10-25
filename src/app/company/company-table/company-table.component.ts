@@ -15,14 +15,12 @@ export class CompanyTableComponent implements OnInit {
   @Output()
   deleteClicked = new EventEmitter<Company>();
 
-  constructor() { // sth to change detection in constructor
-  }
+  constructor() { }
 
   ngOnInit() {
   }
 
   deleteCompany(company: Company) {
     this.deleteClicked.emit(company);
-    // change detection here
   }
 }
