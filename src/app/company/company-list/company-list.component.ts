@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Company } from '../company';
 import { CompanyService } from '../company.service';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'fbc-company-list',
@@ -8,16 +9,18 @@ import { CompanyService } from '../company.service';
   styleUrls: ['./company-list.component.scss']
 })
 export class CompanyListComponent implements OnInit {
+
   companies: Company[] = [];
-  companyService: CompanyService;
 
-  constructor(companySrv: CompanyService) {
-    this.companyService = companySrv;
-   }
-
-  ngOnInit() {
-    this.companies = this.companyService.getCompanies();
+  constructor(private companyService: CompanyService) {
   }
 
+  ngOnInit() {
+    this.companyService.getCompanies()
+      .pipe(   // without modifing
+        tap(c => console.log('component has companies ', c))  // rxjs operator
+      )
+      .subscribe(c => this.companies = c);
+  }
 
 }

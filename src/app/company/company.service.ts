@@ -1,18 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Company } from './company';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CompanyService {
 
-  constructor() { }
+  API_BASE = 'http://firebootcamp-crm-api.azurewebsites.net/api';
 
-  getCompanies(): Company[] {
-    return [
-      { name: 'Company A', phone: 123456, email: 'test@companyA.com.au' },
-      { name: 'Company B', phone: 123456, email: 'test@companyB.com.au' },
-      { name: 'Company C', phone: 123456, email: 'test@companyC.com.au' }
-    ];
+  constructor(private httpClient: HttpClient) { }
+
+  getCompanies(): Observable<Company[]> {
+    const str = this.API_BASE + '/company';
+    return this.httpClient.get<Company[]>(this.API_BASE + '/company') // this version not working for me: (`$(this.API_BASE)/company`)  
+    .pipe(   // without modifing
+      tap(c => console.log('component has companies ', c))
+    );
   }
 }
