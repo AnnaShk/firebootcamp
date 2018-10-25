@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Company } from '../company';
 import { CompanyService } from '../company.service';
-import { tap } from 'rxjs/operators';
+import { tap, takeWhile } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -11,14 +11,15 @@ import { Subscription } from 'rxjs';
 })
 export class CompanyListComponent implements OnInit, OnDestroy {
   companies: Company[] = [];
-  sub: Subscription;
+  componentExist = true;
 
   constructor(private companyService: CompanyService) {
   }
 
   ngOnInit() {
-    this.sub = this.companyService.getCompanies()
+    this.companyService.getCompanies()
       .pipe(   // without modifing
+        takeWhile(c => this.componentExist),
         tap(c => console.log('component has companies ', c))  // rxjs operator
       )
       .subscribe(
@@ -32,9 +33,7 @@ export class CompanyListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (!!this.sub) {
-      this.sub.unsubscribe();
-    }
+    this.componentExist = false;
   }
 
 
