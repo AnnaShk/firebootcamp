@@ -1,10 +1,14 @@
-
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  {{ companyCount$ | async }}
-</div>
+<nav class="navbar navbar-light bg-faded">
+    <a class="navbar-brand" [routerLink]="['/']">FireBootCamp CRM</a>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item" [routerLinkActive]="'active'">
+        <a class="nav-link" [routerLink]="['/company/list']">Companies: {{ companyCount$ | async }}</a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="'active'">
+        <a class="nav-link" [routerLink]="['/admin']">Admin</a>
+      </li>
+    </ul>
+  </nav>
 
 <div class="container">
   <router-outlet></router-outlet>  <!--load what router says to load-->
