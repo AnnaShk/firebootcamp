@@ -1,7 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Company } from '../company';
 import { CompanyService } from '../company.service';
-import { tap, finalize } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -24,9 +23,6 @@ export class CompanyListComponent implements OnInit {
   }
 
   deleteClicked(company: Company) {
-    this.companyService.deleteCompany(company)
-      .subscribe(  // Nothing (delete) will not happen without subscribe
-        c => this.loadCompanies()
-      );
+    this.companyService.deleteCompany(company);
   }
 }
