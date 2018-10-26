@@ -21,13 +21,13 @@ export class CompanyService {
     return this.companies$;
   }
 
-  deleteCompany(company: Company){
-    // API deletes the company which was just deleted
-    const res = this.httpClient.delete<Company>(`${this.API_BASE}/company/${company.id}`)
+  deleteCompany(company: Company) {
+    // API returns the company which was just deleted
+    this.httpClient.delete<Company>(`${this.API_BASE}/company/${company.id}`)
       .pipe(
         catchError(error => this.errorHandler<Company>(error))
-      );
-      res.subscribe (c => this.loadCompanies());
+      )
+      .subscribe (c => this.loadCompanies());
   }
 
   addCompany(company: Company) {
@@ -51,7 +51,7 @@ export class CompanyService {
       .pipe(
         catchError(e => this.errorHandler<Company[]>(e))
       )
-      .subscribe (c => this.companies$.next(c));
+      .subscribe (c => this.companies$.next(c)); // next - this state is no longer valid. Update the observable with c
   }
 
   getCompany(id: number): Observable<Company> {
