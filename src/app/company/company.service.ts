@@ -3,6 +3,7 @@ import { Company } from './company';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,7 @@ export class CompanyService {
   }
 
   getCompanies(): Observable<Company[]> {
+    console.log('Is env? ', environment);
     return this.companies$;
   }
 
