@@ -5,6 +5,7 @@
           <th>Phone</th>
           <th>Email</th>
           <th></th>
+          <th></th>
       </tr>
   </thead>
   <tbody>
@@ -12,6 +13,9 @@
           <td>{{ company.name }}</td>
           <td>{{ company.phone }}</td>
           <td>{{ company.email }}</td>
+          <td>
+              <button type="button" class="btn btn-info" [routerLink]="['/company', 'edit', company.id]">Edit</button>
+          </td>
           <td>
               <button type="button" class="btn btn-danger" (click)="deleteCompany(company)">Delete</button>
           </td>
