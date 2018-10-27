@@ -24,20 +24,20 @@ beforeEach(() => {
   };
 });
 
-describe('Component: App Component', () => {
+describe(`Component: App Component`, () => {
   // Test 1
-  it('add 1+1', () => {
+  it(`add 1+1`, () => {
     expect(1 + 1).toEqual(2);
   });
 
   // Test 2
-  it('Component Title', () => {
+  it(`Component Title`, () => {
     const component = new AppComponent(null);
     expect(component.title).toEqual('firebootcamp-crm');
   });
 
   // Test 3
-  it('Component with fake service', () => {
+  it(`Component with fake service`, () => {
     const component = new AppComponent(companySvc);
     component.ngOnInit();
     component.companyCount$
@@ -47,7 +47,7 @@ describe('Component: App Component', () => {
   });
 
   // Test 4 (with Spy on)
-  it('Component with fake serviceand spy-on', () => {
+  it(`Component with fake serviceand spy-on`, () => {
     const component = new AppComponent(companySvc);
     // SpyOn
     // overriding companySvc
@@ -71,7 +71,7 @@ describe('Component: App Component', () => {
   });
 });
 
-describe('TestBedModule', () => {
+describe(`TestBedModule`, () => {
 
   let fixture: ComponentFixture<AppComponent>;
   let component: AppComponent;
@@ -99,19 +99,35 @@ describe('TestBedModule', () => {
 
   });
 
-  it('companyCount = 1', () => {
-    spyOn(companySvc, 'getCompanies').and.returnValue(of([{
-      name: 'Fake Company',
-      email: 'test@test.com',
-      number: '1234'
-    }]));
+  it(`companyCount = 1`, () => {
+    spyOn(companySvc, 'getCompanies').and.returnValue(of([
+      {
+        name: 'Fake Company C',
+        email: 'fakeEmail@ssw.com.au',
+        number: 12345
+      }
+    ]));
 
     fixture.detectChanges();
-    const el = fixture.debugElement.query(By.css('#companyCount')).nativeElement;
-    expect(el.textComponent).toEqual('1');
-    // expect(component.companyCount$.subscribe(c => {
-    //   expect(c).toEqual(1);
-    // }));
+
+    expect(component.companyCount$.subscribe(c => {
+      expect(c).toEqual(1);
+    }));
+  });
+
+  it(`CompanyCount HTML should update`, () => {
+    spyOn(companySvc, 'getCompanies').and.returnValue(of([
+      {
+        name: 'Fake Company C',
+        email: 'fakeEmail@ssw.com.au',
+        number: 12345
+      }
+    ]));
+    fixture.detectChanges();
+
+    const el = fixture.debugElement.query(By.css('#company-count')).nativeElement;
+
+    expect(el.textContent).toEqual('1');
   });
 
 
